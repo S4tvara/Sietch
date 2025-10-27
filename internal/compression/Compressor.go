@@ -70,8 +70,8 @@ func DecompressData(data []byte, algorithm string) ([]byte, error) {
 		// Check if we hit the limit (potential decompression bomb)
 		if n == constants.MaxDecompressionSize {
 			// Try to read one more byte to see if there's more data
-			var extraByte [1]byte
-			if _, err := reader.Read(extraByte[:]); err == nil {
+			var extraByte []byte
+			if _, err := reader.Read(extraByte); err == nil {
 				return nil, fmt.Errorf("decompressed data exceeds maximum size limit (%d bytes) - potential decompression bomb", constants.MaxDecompressionSize)
 			}
 		}
@@ -97,13 +97,18 @@ func DecompressData(data []byte, algorithm string) ([]byte, error) {
 
 	case constants.CompressionTypeLz4:
 		reader := lz4.NewReader(bytes.NewReader(data))
-		if reader.Size() >= constants.MaxDecompressionSize {
-			return nil, fmt.Errorf("decompressed data exceeds maximum size limit (%d bytes) - potential decompression bomb", constants.MaxDecompressionSize)
-		}
+
 		var buf bytes.Buffer
-		_, err := io.Copy(&buf, reader)
+		n, err := io.CopyN(&buf, reader, constants.MaxDecompressionSize)
 		if err != nil && err != io.EOF {
 			return nil, fmt.Errorf("failed to decompress lz4 data: %w", err)
+		}
+
+		if n == constants.MaxDecompressionSize {
+			var extraByte []byte
+			if _, err := reader.Read(extraByte); err == nil {
+				return nil, fmt.Errorf("decompressed data exceeds maximum size limit (%d bytes) - potential decompression bomb", constants.MaxDecompressionSize)
+			}
 		}
 		return buf.Bytes(), nil
 
