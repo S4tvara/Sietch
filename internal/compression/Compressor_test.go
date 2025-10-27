@@ -55,7 +55,7 @@ func TestCompressAndDecompressData(t *testing.T) {
 					t.Errorf("Expected nil compressed data on error")
 				}
 				if err != nil && err.Error() != tt.err.Error() {
-					t.Errorf("Wrong error recieved. Expected: %v. Recieved: %v", tt.err, err)
+					t.Errorf("Wrong error received. Expected: %v. Received: %v", tt.err, err)
 				}
 				return
 			}
@@ -115,7 +115,7 @@ func TestDecompressBomb(t *testing.T) {
 				return
 			}
 			if err == nil || err.Error() != fmt.Sprintf("decompressed data exceeds maximum size limit (%d bytes) - potential decompression bomb", constants.MaxDecompressionSize) {
-				t.Errorf("Incorrect error recieved. Error: %v", err)
+				t.Errorf("Incorrect error received. Error: %v", err)
 			}
 		})
 	}
