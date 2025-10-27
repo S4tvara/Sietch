@@ -87,12 +87,16 @@ func TestDecompressBomb(t *testing.T) {
 		name      string
 		algorithm string
 	}{
-		// {
-		// 	name:      "With Gzip Algorithm",
-		// 	algorithm: constants.CompressionTypeGzip,
-		// },
+		{
+			name:      "With Gzip Algorithm",
+			algorithm: constants.CompressionTypeGzip,
+		},
 		{
 			name:      "With LZ4 Algorithm",
+			algorithm: constants.CompressionTypeLz4,
+		},
+		{
+			name:      "With Zstd Algorithm",
 			algorithm: constants.CompressionTypeLz4,
 		},
 	}
