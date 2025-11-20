@@ -258,8 +258,8 @@ Thanks to all our amazing contributors!
 	<tbody>
 		<tr>
             <td align="center">
-                <a href="https://github.com/SubstantialCattle5">
-                    <img src="https://avatars.githubusercontent.com/u/92233871?v=4" width="100;" alt="SubstantialCattle5"/>
+                <a href="https://github.com/S4tvara">
+                    <img src="https://avatars.githubusercontent.com/u/92233871?v=4" width="100;" alt="S4tvara"/>
                     <br />
                     <sub><b>Nilay Nath Sharan</b></sub>
                 </a>
